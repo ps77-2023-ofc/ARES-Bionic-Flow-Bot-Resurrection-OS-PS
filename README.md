@@ -3,7 +3,7 @@
 ¡Bienvenidos! Este es el repositorio oficial del ARES Bionic-Flow Assistant Bot for Resurrection OS (su versión escrita en PowerShell), un script automatizado programado en PowerShell diseñado para facilitar la configuración inicial, personalización, optimización y modificación de Resurrection OS, y que nuestros usuarios le saquen el máximo partido y jugo al usarlo.
 
 ## Descarga ⬇️
-Este bot ya vendrá incorporado en Resurrection OS, pero si planeas utilizarlo en un Windows oficial, o en otros Windows modificados (ej. DR Lite, WinterOS, MiniOS, ReviOS, AtlasOS, Windows Zero, KernelOS, etc.) puedes descargar el instalador del bot en la página [Releases](./Releases) y eligiendo el instalador adecuado para tu sistema objetivo:
+Este bot ya vendrá incorporado en Resurrection OS, pero si planeas utilizarlo en un Windows oficial, o en otros Windows modificados (ej. DR Lite, WinterOS, MiniOS, ReviOS, AtlasOS, Windows Zero, KernelOS, etc.) puedes descargar el instalador del bot en la página [Releases](https://github.com/ps77-2023-ofc/ARES-Bionic-Flow-Bot-Resurrection-OS-PS/releases) y eligiendo el instalador adecuado para tu sistema objetivo:
 
 * Si tu sistema es Windows 11, escoge el archivo **ARES-Bionic-Flow-Bot-Installer_Win11_x64.exe**
 * Si tu sistema es Windows 10, escoge el archivo **ARES-Bionic-Flow-Bot-Installer_Win10_x64.exe**
