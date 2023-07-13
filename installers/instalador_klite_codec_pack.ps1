@@ -1,6 +1,6 @@
-$descargarMSEdge = Read-Host "¿Deseas instalar K-Lite Codec Pack? (S/N)"
+$descargarKLCP = Read-Host "¿Deseas instalar K-Lite Codec Pack? (S/N)"
 
-if ($descargarMSEdge -eq "S") {
+if ($descargarKLCP -eq "S") {
     Write-Host "¡Entendido! Comenzando tarea 1 de 2: Descarga de K-Lite Codec Pack..."
 
     $url = "https://files3.codecguide.com/K-Lite_Codec_Pack_1768_Mega.exe"
@@ -20,6 +20,19 @@ if ($descargarMSEdge -eq "S") {
     Write-Host "¡Finalizado! K-Lite Codec Pack ha sido instalado correctamente." 
     Write-Host "Ve al menú Inicio o abre la bandeja de íconos ocultos para comprobar que ya fue instalado :)"
     Write-Host "¡Disfruta una calidad mejorada en tus archivos multimedia!"
+    Write-Host "Refrescando el menú..."
+    Start-Sleep -Seconds 5
+    $returnValue
+    exit
 }
-
+elseif ($descargarKLCP -eq "N"){
+    Write-Host "De acuerdo. Refrescando el menú..."
+    Start-Sleep -Seconds 5
+    $returnValue
+    exit
+}
+else{
+    Write-Host "Disculpa, no entendí tu respuesta. ¡Inténtalo de nuevo!"
+    Write-Host ($descargarKLCP)
+}
 $returnValue = "return-to-menu"
