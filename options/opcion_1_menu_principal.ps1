@@ -2,9 +2,9 @@ $installersFolderPath = ".\installers"
 $checkersFolderPath = ".\checkers"
 $showOption1optionsMenu = {
     Write-Host "-------------------------------------------------------------------------------------------------------------------"
-    Write-Host "|                                                                                                                                                                                                          |"
-    Write-Host "|                                              DESCARGA / INSTALACIÓN DE SOFTWARE/PROGRAMAS                                |        |"
-    Write-Host "|                                                                                                                                                                                                          |"
+    Write-Host "|                                                                                                                 |"                                                                                       |"
+    Write-Host "|                                      DESCARGA / INSTALACIÓN DE SOFTWARE/PROGRAMAS                               |"        
+    Write-Host "|                                                                                                                 |"                                                                                        |"
     Write-Host "-------------------------------------------------------------------------------------------------------------------"
     Write-Host "1. Descargar / instalar Google Chrome"
     Write-Host "2. Descargar / instalar Microsoft Edge"
@@ -357,8 +357,307 @@ switch ($option) {
             break
         }
     "8" {
-        Clear-Host
-        & "$installersFolderPath\instalador_lively_wallpaper.ps1"
+    Clear-Host
+    $lwInstallPrevApproval = {
+        Write-Host "¡Entendido! Para ofrecerte la mejor experiencia, y prevenir problemas de rendimiento cuando uses Rainmeter,"
+        Write-Host "realizaré una comprobación rápida de tu equipo, para asegurarme que cumples con los requisitos mínimos y/o recomendados para usarlo."
+        Write-Host "Cuando la comprobación finalice, te diré los resultados. De acuerdo a lo que obtengas, te diré qué debes hacer a continuación."
+    }
+    Write-Host ($lwInstallPrevApproval)
+    $lwCheckapproval = Read-Host "¿Aceptas que realice la comprobación y comenzar con la instalación de Rainmeter? (S/N)"
+    if ($lwCheckapproval -eq "S"){
+        Write-Host "¡Muy bien! Comprobando tu equipo... (Espera a que la comprobación finalice)"
+        & "$checkersFolderPath\comprobador_compatibilidad_lively_wallpaper.ps1"
+        if ($livelyCompatStatus -eq "system-is-compatible" -and $lwCheckScriptExecutionStatus -eq "check-finished"){
+            Write-Host "¡Terminé! Aquí tengo tus resultados:"
+            Write-Host "Estado de la compatibilidad: REQUISITOS CUMPLIDOS"
+            Write-Host "¡Felicidades! Has pasado la prueba de los requisitos mínimos y/o recomendados para Lively Wallpaper,"
+            Write-Host "con lo que tienes luz verde para instalarlo."
+            $lwCompatPassedApproval = Read-Host "¿Listo para comenzar? (S/N)"
+            if ($lwCompatPassedApproval -eq "S"){
+                & "$installersFolderPath\instalador_lively_wallpaper.ps1"
+            }
+            elseif ($lwCompatPassedApproval -eq "N"){
+                Write-Host "De acuerdo. ¡Regresa cuando estés listo! Refrescando el menú..."
+                Start-Sleep -Seconds 5
+                Clear-Host
+                Write-Host ($showOption1optionsMenu)
+            }
+            else {
+                Write-Host "Disculpa, no entendí tu respuesta. ¡Inténtalo de nuevo!"
+                Start-Sleep -Seconds 5
+                Clear-Host
+                Write-Host ($lwCompatPassedApproval)
+            }
+        }
+        elseif ($livelyCompatStatus -eq "isFull_FullLegends_but_not_compatible"-and $lwCheckScriptExecutionStatus -eq "check-finished"){
+            Write-Host "¡Terminé! Aquí tengo tus resultados:"
+            Write-Host "Estado de la compatibilidad: ESTÁS EN FULL/FULL LEGENDS, PERO NO CUMPLES LOS REQ. MÍNIMOS."
+            Write-Host "Hmm... parece que sí tienes Resurrection OS Full o Full Legends instalado, pero alguno de los requisitos"
+            Write-Host "mínimos o recomendados no los cumples. Verifica en la Base de Conocimientos oficial de Resurrection OS"
+            Write-Host "y chequea qué requisito podrías no estar cumpliendo."
+            Write-Host "Puedes acceder a ella en: https://docs-resurrectionos.gitbook.io/resurrection-os-knowledge-base/usando-al-ares-bot/opcion-8-lively-wallpaper#requisitos"
+            Start-Sleep -Seconds 5
+            Write-Host "Independiente del requisito, aún puedo ayudarte a instalar Rainmeter, pero será bajo tu propio riesgo."
+            Write-Host "Si decides instalar Lively Wallpaper de todas maneras, y empiezas a experimentar problemas de rendimiento, y si al usar"
+            Write-Host "mis herramientas de optimización no ves mejoría o ves muy poca, mi creador no tomará responsabilidad ante ello. Quedas advertido."
+            $LWFullFLegendsbutNotCompatDisclaimerAccepted = Read-Host "Dicho esto, ¿quieres continuar de todos modos? (S/N)"
+            if ($LWFullFLegendsbutNotCompatDisclaimerAccepted -eq "S"){
+                & "$installersFolderPath\instalador_lively_wallpaper.ps1"
+            }
+            elseif ($LWFullFLegendsbutNotCompatDisclaimerAccepted -eq "N"){
+                Write-Host "Buena decisión. ¡Cuida siempre el rendimiento de tu equipo! :)"
+                Write-Host "Refrescando el menú..."
+                Start-Sleep -Seconds 5
+                Clear-Host
+                Write-Host ($showOption1optionsMenu)
+            }
+            else {
+                Write-Host "Disculpa, no entendí tu respuesta. ¡Inténtalo nuevamente!"
+                Start-Sleep -Seconds 5
+                Clear-Host
+                Write-Host ($LWFullFLegendsbutNotCompatDisclaimerAccepted)
+            }
+        }
+        elseif ($livelyCompatStatus -eq "error-case-1-ocurred" -and $lwCheckScriptExecutionStatus -eq "check-finished"){
+            Write-Host "¡Terminé! Aquí tengo tus resultados:"
+            Write-Host "Estado de la compatibilidad: NO CUMPLES LOS REQUISITOS: CASO 1."
+            Write-Host "Hmm... parece que tu equipo no cumple con los requisitos mínimos/recomendados. En base a mis análisis, aplicas al Caso #1 de incompatibilidad."
+            Write-Host "Ve a la Base de Conocimientos oficial de Resurrection OS y chequea el caso al que aplicas para saber qué he encontrado."
+            Write-Host "Puedes acceder a ella en: https://docs-resurrectionos.gitbook.io/resurrection-os-knowledge-base/usando-al-ares-bot/opcion-8-lively-wallpaper#casos-de-incompatibilidad"
+            Start-Sleep -Seconds 5
+            Write-Host "Independientemente del caso en el que te encuentres, aún puedo ayudarte a instalar Lively Wallpaper, pero será bajo tu propio riesgo."
+            Write-Host "Si decides instalar Rainmeter de todas maneras, y empiezas a experimentar problemas de rendimiento, y si al usar"
+            Write-Host "mis herramientas de optimización no ves mejoría o ves muy poca, mi creador no tomará responsabilidad ante ello. Quedas advertido."
+            $LWcase1DisclaimerAccepted = Read-Host "Dicho esto, ¿quieres continuar de todos modos? (S/N)"
+            if ($LWcase1DisclaimerAccepted -eq "S"){
+                & "$installersFolderPath\instalador_lively_wallpaper.ps1"
+            }
+            elseif ($LWcase1DisclaimerAccepted -eq "N"){
+                Write-Host "Buena decisión. ¡Cuida siempre el rendimiento de tu equipo! :)"
+                Write-Host "Refrescando el menú..."
+                Start-Sleep -Seconds 5
+                Clear-Host
+                Write-Host ($showOption1optionsMenu)
+            }
+            else {
+                Write-Host "Disculpa, no entendí tu respuesta. ¡Inténtalo nuevamente!"
+                Start-Sleep -Seconds 5
+                Clear-Host
+                Write-Host ($LWcase1DisclaimerAccepted)
+            }
+        }
+        elseif ($livelyCompatStatus -eq "error-case-2-ocurred"-and $lwCheckScriptExecutionStatus -eq "check-finished"){
+            Write-Host "¡Terminé! Aquí tengo tus resultados:"
+            Write-Host "Estado de la compatibilidad: NO CUMPLES LOS REQUISITOS: CASO 2."
+            Write-Host "Hmm... parece que tu equipo no cumple con los requisitos mínimos/recomendados. En base a mis análisis, aplicas al Caso #2 de incompatibilidad."
+            Write-Host "Ve a la Base de Conocimientos oficial de Resurrection OS y chequea el caso al que aplicas para saber qué he encontrado."
+            Write-Host "Puedes acceder a ella en: https://docs-resurrectionos.gitbook.io/resurrection-os-knowledge-base/usando-al-ares-bot/opcion-8-lively-wallpaper#casos-de-incompatibilidad"
+            Start-Sleep -Seconds 5
+            Write-Host "Independientemente del caso en el que te encuentres, aún puedo ayudarte a instalar Lively Wallpaper, pero será bajo tu propio riesgo."
+            Write-Host "Si decides instalar Lively Wallpaper de todas maneras, y empiezas a experimentar problemas de rendimiento, y si al usar"
+            Write-Host "mis herramientas de optimización no ves mejoría o ves muy poca, mi creador no tomará responsabilidad ante ello. Quedas advertido."
+            $LWcase2DisclaimerAccepted = Read-Host "Dicho esto, ¿quieres continuar de todos modos? (S/N)"
+            if ($LWcase2DisclaimerAccepted -eq "S"){
+                & "$installersFolderPath\instalador_lively_wallpaper.ps1"
+            }
+            elseif ($LWcase2DisclaimerAccepted -eq "N"){
+                Write-Host "Buena decisión. ¡Cuida siempre el rendimiento de tu equipo! :)"
+                Write-Host "Refrescando el menú..."
+                Start-Sleep -Seconds 5
+                Clear-Host
+                Write-Host ($showOption1optionsMenu)
+            }
+            else {
+                Write-Host "Disculpa, no entendí tu respuesta. ¡Inténtalo nuevamente!"
+                Start-Sleep -Seconds 5
+                Clear-Host
+                Write-Host ($LWcase1DisclaimerAccepted)
+            }
+        }
+    }
+    elseif ($livelyCompatStatus -eq "error-case-3-ocurred"-and $lwCheckScriptExecutionStatus -eq "check-finished"){
+        Write-Host "¡Terminé! Aquí tengo tus resultados:"
+        Write-Host "Estado de la compatibilidad: NO CUMPLES LOS REQUISITOS: CASO 3."
+        Write-Host "Hmm... parece que tu equipo no cumple con los requisitos mínimos/recomendados. En base a mis análisis, aplicas al Caso #3 de incompatibilidad."
+        Write-Host "Ve a la Base de Conocimientos oficial de Resurrection OS y chequea el caso al que aplicas para saber qué he encontrado."
+        Write-Host "Puedes acceder a ella en: https://docs-resurrectionos.gitbook.io/resurrection-os-knowledge-base/usando-al-ares-bot/opcion-8-lively-wallpaper#casos-de-incompatibilidad"
+        Start-Sleep -Seconds 5
+        Write-Host "Independientemente del caso en el que te encuentres, aún puedo ayudarte a instalar Lively Wallpaper, pero será bajo tu propio riesgo."
+        Write-Host "Si decides instalar Lively Wallpaper de todas maneras, y empiezas a experimentar problemas de rendimiento, y si al usar"
+        Write-Host "mis herramientas de optimización no ves mejoría o ves muy poca, mi creador no tomará responsabilidad ante ello. Quedas advertido."
+        $LWcase3DisclaimerAccepted = Read-Host "Dicho esto, ¿quieres continuar de todos modos? (S/N)"
+            if ($LWcase3DisclaimerAccepted -eq "S"){
+                & "$installersFolderPath\instalador_lively_wallpaper.ps1"
+            }
+            elseif ($LWcase3DisclaimerAccepted -eq "N"){
+                Write-Host "Buena decisión. ¡Cuida siempre el rendimiento de tu equipo! :)"
+                Write-Host "Refrescando el menú..."
+                Start-Sleep -Seconds 5
+                Clear-Host
+                Write-Host ($showOption1optionsMenu)
+            }
+            else {
+                Write-Host "Disculpa, no entendí tu respuesta. ¡Inténtalo nuevamente!"
+                Start-Sleep -Seconds 5
+                Clear-Host
+                Write-Host ($LWcase3DisclaimerAccepted)
+            }
+        }
+        elseif ($livelyCompatStatus -eq "error-case-4-ocurred"-and $lwCheckScriptExecutionStatus -eq "check-finished"){
+            Write-Host "¡Terminé! Aquí tengo tus resultados:"
+            Write-Host "Estado de la compatibilidad: NO CUMPLES LOS REQUISITOS: CASO 4."
+            Write-Host "Hmm... parece que tu equipo no cumple con los requisitos mínimos/recomendados. En base a mis análisis, aplicas al Caso #4 de incompatibilidad."
+            Write-Host "Ve a la Base de Conocimientos oficial de Resurrection OS y chequea el caso al que aplicas para saber qué he encontrado."
+            Write-Host "Puedes acceder a ella en: https://docs-resurrectionos.gitbook.io/resurrection-os-knowledge-base/usando-al-ares-bot/opcion-8-lively-wallpaper#casos-de-incompatibilidad"
+            Start-Sleep -Seconds 5
+            Write-Host "Independientemente del caso en el que te encuentres, aún puedo ayudarte a instalar Lively Wallpaper, pero será bajo tu propio riesgo."
+            Write-Host "Si decides instalar Lively Wallpaper de todas maneras, y empiezas a experimentar problemas de rendimiento, y si al usar"
+            Write-Host "mis herramientas de optimización no ves mejoría o ves muy poca, mi creador no tomará responsabilidad ante ello. Quedas advertido."
+            $LWcase4DisclaimerAccepted = Read-Host "Dicho esto, ¿quieres continuar de todos modos? (S/N)"
+            if ($LWcase4DisclaimerAccepted -eq "S"){
+                & "$installersFolderPath\instalador_lively_wallpaper.ps1"
+            }
+            elseif ($LWcase4DisclaimerAccepted -eq "N"){
+                Write-Host "Buena decisión. ¡Cuida siempre el rendimiento de tu equipo! :)"
+                Write-Host "Refrescando el menú..."
+                Start-Sleep -Seconds 5
+                Clear-Host
+                Write-Host ($showOption1optionsMenu)
+            }
+            else {
+                Write-Host "Disculpa, no entendí tu respuesta. ¡Inténtalo nuevamente!"
+                Start-Sleep -Seconds 5
+                Clear-Host
+                Write-Host ($LWcase4DisclaimerAccepted)
+            }
+        }
+        elseif ($livelyCompatStatus -eq "error-case-5-ocurred"-and $lwCheckScriptExecutionStatus -eq "check-finished"){
+            Write-Host "¡Terminé! Aquí tengo tus resultados:"
+            Write-Host "Estado de la compatibilidad: NO CUMPLES LOS REQUISITOS: CASO 5."
+            Write-Host "Hmm... parece que tu equipo no cumple con los requisitos mínimos/recomendados. En base a mis análisis, aplicas al Caso #5 de incompatibilidad."
+            Write-Host "Ve a la Base de Conocimientos oficial de Resurrection OS y chequea el caso al que aplicas para saber qué he encontrado."
+            Write-Host "Puedes acceder a ella en: https://docs-resurrectionos.gitbook.io/resurrection-os-knowledge-base/usando-al-ares-bot/opcion-8-lively-wallpaper#casos-de-incompatibilidad"
+            Start-Sleep -Seconds 5
+            Write-Host "Independientemente del caso en el que te encuentres, aún puedo ayudarte a instalar Lively Wallpaper, pero será bajo tu propio riesgo."
+            Write-Host "Si decides instalar Lively Wallpaper de todas maneras, y empiezas a experimentar problemas de rendimiento, y si al usar"
+            Write-Host "mis herramientas de optimización no ves mejoría o ves muy poca, mi creador no tomará responsabilidad ante ello. Quedas advertido."
+            $LWcase5DisclaimerAccepted = Read-Host "Dicho esto, ¿quieres continuar de todos modos? (S/N)"
+            if ($LWcase5DisclaimerAccepted -eq "S"){
+                & "$installersFolderPath\instalador_lively_wallpaper.ps1"
+            }
+            elseif ($LWcase5DisclaimerAccepted -eq "N"){
+                Write-Host "Buena decisión. ¡Cuida siempre el rendimiento de tu equipo! :)"
+                Write-Host "Refrescando el menú..."
+                Start-Sleep -Seconds 5
+                Clear-Host
+                Write-Host ($showOption1optionsMenu)
+            }
+            else {
+                Write-Host "Disculpa, no entendí tu respuesta. ¡Inténtalo nuevamente!"
+                Start-Sleep -Seconds 5
+                Clear-Host
+                Write-Host ($LWcase5DisclaimerAccepted)
+            }
+        }
+        elseif ($livelyCompatStatus -eq "error-case-6-ocurred"-and $lwCheckScriptExecutionStatus -eq "check-finished"){
+            Write-Host "¡Terminé! Aquí tengo tus resultados:"
+            Write-Host "Estado de la compatibilidad: NO CUMPLES LOS REQUISITOS: CASO 6."
+            Write-Host "Hmm... parece que tu equipo no cumple con los requisitos mínimos/recomendados. En base a mis análisis, aplicas al Caso #6 de incompatibilidad."
+            Write-Host "Ve a la Base de Conocimientos oficial de Resurrection OS y chequea el caso al que aplicas para saber qué he encontrado."
+            Write-Host "Puedes acceder a ella en: https://docs-resurrectionos.gitbook.io/resurrection-os-knowledge-base/usando-al-ares-bot/opcion-8-lively-wallpaper#casos-de-incompatibilidad"
+            Start-Sleep -Seconds 5
+            Write-Host "Independientemente del caso en el que te encuentres, aún puedo ayudarte a instalar Lively Wallpaper, pero será bajo tu propio riesgo."
+            Write-Host "Si decides instalar Lively Wallpaper de todas maneras, y empiezas a experimentar problemas de rendimiento, y si al usar"
+            Write-Host "mis herramientas de optimización no ves mejoría o ves muy poca, mi creador no tomará responsabilidad ante ello. Quedas advertido."
+            $LWcase6DisclaimerAccepted = Read-Host "Dicho esto, ¿quieres continuar de todos modos? (S/N)"
+            if ($LWcase6DisclaimerAccepted -eq "S"){
+                & "$installersFolderPath\instalador_lively_wallpaper.ps1"
+            }
+            elseif ($LWcase6DisclaimerAccepted -eq "N"){
+                Write-Host "Buena decisión. ¡Cuida siempre el rendimiento de tu equipo! :)"
+                Write-Host "Refrescando el menú..."
+                Start-Sleep -Seconds 5
+                Clear-Host
+                Write-Host ($showOption1optionsMenu)
+            }
+            else {
+                Write-Host "Disculpa, no entendí tu respuesta. ¡Inténtalo nuevamente!"
+                Start-Sleep -Seconds 5
+                Clear-Host
+                Write-Host ($LWcase6DisclaimerAccepted)
+            }
+        }
+        elseif ($livelyCompatStatus -eq "error-case-7-ocurred"-and $lwCheckScriptExecutionStatus -eq "check-finished"){
+            Write-Host "¡Terminé! Aquí tengo tus resultados:"
+            Write-Host "Estado de la compatibilidad: NO CUMPLES LOS REQUISITOS: CASO 7."
+            Write-Host "Hmm... parece que tu equipo no cumple con los requisitos mínimos/recomendados. En base a mis análisis, aplicas al Caso #7 de incompatibilidad."
+            Write-Host "Ve a la Base de Conocimientos oficial de Resurrection OS y chequea el caso al que aplicas para saber qué he encontrado."
+            Write-Host "Puedes acceder a ella en: https://docs-resurrectionos.gitbook.io/resurrection-os-knowledge-base/usando-al-ares-bot/opcion-8-lively-wallpaper#casos-de-incompatibilidad"
+            Start-Sleep -Seconds 5
+            Write-Host "Independientemente del caso en el que te encuentres, aún puedo ayudarte a instalar Lively Wallpaper, pero será bajo tu propio riesgo."
+            Write-Host "Si decides instalar Lively Wallpaper de todas maneras, y empiezas a experimentar problemas de rendimiento, y si al usar"
+            Write-Host "mis herramientas de optimización no ves mejoría o ves muy poca, mi creador no tomará responsabilidad ante ello. Quedas advertido."
+            $LWcase7DisclaimerAccepted = Read-Host "Dicho esto, ¿quieres continuar de todos modos? (S/N)"
+            if ($LWcase7DisclaimerAccepted -eq "S"){
+                & "$installersFolderPath\instalador_lively_wallpaper.ps1"
+            }
+            elseif ($LWcase7DisclaimerAccepted -eq "N"){
+                Write-Host "Buena decisión. ¡Cuida siempre el rendimiento de tu equipo! :)"
+                Write-Host "Refrescando el menú..."
+                Start-Sleep -Seconds 5
+                Clear-Host
+                Write-Host ($showOption1optionsMenu)
+            }
+            else {
+                Write-Host "Disculpa, no entendí tu respuesta. ¡Inténtalo nuevamente!"
+                Start-Sleep -Seconds 5
+                Clear-Host
+                Write-Host ($LWcase7DisclaimerAccepted)
+            }
+        }
+        elseif ($livelyCompatStatus -eq "error-case-8-ocurred"-and $lwCheckScriptExecutionStatus -eq "check-finished"){
+            Write-Host "¡Terminé! Aquí tengo tus resultados:"
+            Write-Host "Estado de la compatibilidad: NO CUMPLES LOS REQUISITOS: CASO 8."
+            Write-Host "Hmm... parece que tu equipo no cumple con los requisitos mínimos/recomendados. En base a mis análisis, aplicas al Caso #8 de incompatibilidad."
+            Write-Host "Ve a la Base de Conocimientos oficial de Resurrection OS y chequea el caso al que aplicas para saber qué he encontrado."
+            Write-Host "Puedes acceder a ella en: https://docs-resurrectionos.gitbook.io/resurrection-os-knowledge-base/usando-al-ares-bot/opcion-8-lively-wallpaper#casos-de-incompatibilidad"
+            Start-Sleep -Seconds 5
+            Write-Host "Independientemente del caso en el que te encuentres, aún puedo ayudarte a instalar Lively Wallpaper, pero será bajo tu propio riesgo."
+            Write-Host "Si decides instalar Lively Wallpaper de todas maneras, y empiezas a experimentar problemas de rendimiento, y si al usar"
+            Write-Host "mis herramientas de optimización no ves mejoría o ves muy poca, mi creador no tomará responsabilidad ante ello. Quedas advertido."
+            $LWcase8DisclaimerAccepted = Read-Host "Dicho esto, ¿quieres continuar de todos modos? (S/N)"
+            if ($LWcase8DisclaimerAccepted -eq "S"){
+                & "$installersFolderPath\instalador_lively_wallpaper.ps1"
+            }
+            elseif ($LWcase8DisclaimerAccepted -eq "N"){
+                Write-Host "Buena decisión. ¡Cuida siempre el rendimiento de tu equipo! :)"
+                Write-Host "Refrescando el menú..."
+                Start-Sleep -Seconds 5
+                Clear-Host
+                Write-Host ($showOption1optionsMenu)
+            }
+            else {
+                Write-Host "Disculpa, no entendí tu respuesta. ¡Inténtalo nuevamente!"
+                Start-Sleep -Seconds 5
+                Clear-Host
+                Write-Host ($LWcase8DisclaimerAccepted)
+            }
+        }
+        elseif ($lwCheckapproval -eq "N"){
+            Write-Host "Para instalar Lively Wallpaper, y asegurarme de que tendrás la mejor experiencia usándolo, necesito tu aprobación para realizar la comprobación."
+            Write-Host "Debido a que la has negado, no podré ayudarte a instalar Lively Wallpaper. ¡Si cambias de opinión, ejecuta nuevamente la opción 8!"
+            Write-Host "Refrescando el menú..."
+            Start-Sleep -Seconds 5
+            Clear-Host
+            Write-Host ($showOption1optionsMenu)
+        }
+        else {
+            Write-Host "Disculpa, no entendí tu respuesta. ¡Inténtalo de nuevo!"
+            Start-Sleep -Seconds 3
+            Clear-Host
+            Write-Host ($installPrevApproval)
+        }
         break
     }
     "9" {
