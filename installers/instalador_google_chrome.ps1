@@ -19,5 +19,14 @@ if ($descargarChrome -eq "S") {
 
     Write-Host "¡Finalizado! Google Chrome ha sido instalado correctamente. En unos minutos debería abrirse, pero si no lo hace, ve al Escritorio o al menú Inicio para comprobar que ya fue instalado :)"
 }
-
+elseif ($descargarChrome -eq "N"){
+    Write-Host "De acuerdo. Refrescando el menú..."
+    Start-Sleep -Seconds 5
+    $returnValue
+    exit
+}
+else{
+    Write-Host "Disculpa, no entendí tu respuesta. ¡Inténtalo de nuevo!"
+    Write-Host ($descargarChrome)
+}
 $returnValue = "return-to-menu"
