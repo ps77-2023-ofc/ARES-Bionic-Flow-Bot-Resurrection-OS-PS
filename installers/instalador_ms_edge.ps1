@@ -19,6 +19,21 @@ if ($descargarMSEdge -eq "S") {
 
     Write-Host "¡Finalizado! Microsoft Edge ha sido instalado correctamente." 
     Write-Host "En unos minutos debería abrirse, pero si no lo hace, ve al Escritorio o al menú Inicio para comprobar que ya fue instalado :)"
+    Write-Host "Refrescando el menú..."
+    Start-Sleep -Seconds 5
+    $returnValue
+    exit
 }
+elseif ($descargarMSEdge -eq "N"){
+    Write-Host "De acuerdo. Refrescando el menú..."
+    Start-Sleep -Seconds 5
+    $returnValue
+    exit
+}
+else{
+    Write-Host "Disculpa, no entendí tu respuesta. ¡Inténtalo de nuevo!"
+    Write-Host ($descargarMSEdge)
+}
+$returnValue = "return-to-menu"
 
 $returnValue = "return-to-menu"
