@@ -35,5 +35,3 @@ else{
     Write-Host ($descargarMSEdge)
 }
 $returnValue = "return-to-menu"
-
-$returnValue = "return-to-menu"
