@@ -1,6 +1,6 @@
-$descargarMSEdge = Read-Host "¿Deseas instalar Mozilla Firefox? (S/N)"
+$descargarMozillaFFox = Read-Host "¿Deseas instalar Mozilla Firefox? (S/N)"
 
-if ($descargarMSEdge -eq "S") {
+if ($descargarMozillaFFox -eq "S") {
     Write-Host "¡Entendido! Comenzando tarea 1 de 2: Descarga de Mozilla Firefox..."
 
     $url = "https://download-installer.cdn.mozilla.net/pub/firefox/releases/115.0.2/win32/es-ES/Firefox%20Installer.exe"
@@ -19,6 +19,19 @@ if ($descargarMSEdge -eq "S") {
 
     Write-Host "¡Finalizado! Mozilla Firefox ha sido instalado correctamente." 
     Write-Host "Firefox se ha autofijado en la barra de tareas, lo que indica que ya fue instalado :)"
+    Write-Host "Refrescando el menú..."
+    Start-Sleep -Seconds 5
+    $returnValue
+    exit
 }
-
+elseif ($descargarMozillaFFox -eq "N"){
+    Write-Host "De acuerdo. Refrescando el menú..."
+    Start-Sleep -Seconds 5
+    $returnValue
+    exit
+}
+else{
+    Write-Host "Disculpa, no entendí tu respuesta. ¡Inténtalo de nuevo!"
+    Write-Host ($descargarMozillaFFox)
+}
 $returnValue = "return-to-menu"
