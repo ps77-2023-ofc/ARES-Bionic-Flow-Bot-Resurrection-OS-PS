@@ -2,9 +2,7 @@
 $chocoInstalled = Get-Command choco -ErrorAction SilentlyContinue
 
 if ($chocoInstalled) {
-    $chocoInstallStatus = "choco-is-already-installed"
+    $env:EstadoChocolatey = "choco-ya-esta-instalado"
 } else {
-    $chocoInstallStatus = "choco-is-not-installed"
+    $env:EstadoChocolatey = "choco-no-esta-instalado"
 }
-
-$chocoInstallStatus

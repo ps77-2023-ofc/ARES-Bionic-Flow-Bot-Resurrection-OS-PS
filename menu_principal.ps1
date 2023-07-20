@@ -1,6 +1,8 @@
 $optionsFolderPath = ".\options"
+$miscTasksFolderPath = ".\miscellaneous"
+$exitMenu = $false
 # Imprimir menú principal del bot
-$mainmenu = {
+function Show-Main-Menu {
     Write-Host "-----------------------------------------------------------------------------------------------------"
     Write-Host "|                                                                                                   |"
     Write-Host "|                                          MENÚ PRINCIPAL                                           |"
@@ -14,58 +16,65 @@ $mainmenu = {
     Write-Host "6. Salir"
     Write-Host "-----------------------------------------------------------------------------------------------------"
 }
-Write-Host ($mainmenu)
-$option = Read-Host "Ingresa el número de la opción que desees usar:"
-switch ($option) {
-    "1" {
-        Clear-Host
-        & "$optionsFolderPath\opcion_1_menu_principal.ps1"
-        if ($returnValue -eq "return-to-menu"){
+
+while (-not $exitMenu){
+    Show-Main-Menu
+    $option = Read-Host "Ingresa el número de la opción que desees usar"    
+    switch ($option) {
+        "1" {
             Clear-Host
-            Write-Host ($mainmenu)
+            & "$optionsFolderPath\opcion_1_menu_principal.ps1" -Wait
+            if ($env:Opcion1RegresoMPrincipal -eq "regresar-al-menu") {
+                Clear-Host
+                continue  # Volver a mostrar el menú principal
+            }
+        }
+        "2" {
+            Clear-Host
+            & "$optionsFolderPath\opcion_2_menu_principal.ps1" -Wait
+            if ($env:Opcion2RegresoMPrincipal -eq "regresar-al-menu") {
+                Clear-Host
+                continue  # Volver a mostrar el menú principal
+            }
+        }
+        "3" {
+            Clear-Host
+            & "$optionsFolderPath\opcion_3_menu_principal.ps1" -Wait
+            if ($env:Opcion3RegresoMPrincipal -eq "regresar-al-menu") {
+                Clear-Host
+                continue  # Volver a mostrar el menú principal
+            }
+        }
+        "4" {
+            Clear-Host
+            & "$optionsFolderPath\caja_herramientas_resurrection_os.ps1" -Wait
+            if ($env:OpcionCajaHerramientasRegresoMPrincipal -eq "regresar-al-menu") {
+                Clear-Host
+                continue  # Volver a mostrar el menú principal
+            }
+        }
+        "5" {
+            Clear-Host
+            & "$optionsFolderPath\opcion_5_menu_principal.ps1" -Wait
+            if ($env:Opcion5RegresoMPrincipal -eq "regresar-al-menu") {
+                Clear-Host
+                continue  # Volver a mostrar el menú principal
+            }
+        }
+        "6" {
+            &"$miscTasksFolderPath\exiter\salida.ps1"
+            if ($env:DisparadorSalidaScript -eq "opcion-6-salida-script"){
+                Write-Host "¡Nos vemos! Recuerda, si me necesitas de nuevo, me puedes encontrar en el Menú Extendido de Resurrection OS, haciendo clic en la opción 'Iniciar ARES Bionic-Flow Bot'. ¡Nos vemos luego!" -ForegroundColor Yellow
+                Start-Sleep -Seconds 5
+                $exitMenu = $true # Establecer la bandera de salida del menú
+            }
+        }
+        default {
+            Write-Host "¡Opcion invalida! Por favor, selecciona una opción valida." -ForegroundColor Red
+            Start-Sleep -Seconds 2
+            Clear-Host
+            continue
         }
     }
-    "2" {
-        Clear-Host
-        & "$optionsFolderPath\opcion_2_menu_principal.ps1"
-        if ($returnValue -eq "return-to-menu"){
-            Clear-Host
-            Write-Host ($mainmenu)
-        }
-    }
-    "3" {
-        Clear-Host
-        & "$optionsFolderPath\opcion_3_menu_principal.ps1"
-        if ($returnValue -eq "return-to-menu"){
-            Clear-Host
-            Write-Host ($mainmenu)
-        }
-    }
-    "4" {
-        Clear-Host
-        & "$optionsFolderPath\caja_herramientas_resurrection_os.ps1"
-        if ($returnValue -eq "return-to-menu"){
-            Clear-Host
-            Write-Host ($mainmenu)
-        }
-    }
-    "5" {
-        Clear-Host
-        & "$optionsFolderPath\opcion_5_menu_principal.ps1"
-        if ($returnValue -eq "return-to-menu"){
-            Clear-Host
-            Write-Host ($mainmenu)
-        }
-    }
-    "6" {
-        Write-Host "¡Nos vemos! Recuerda, si me necesitas de nuevo, me puedes encontrar en el Menú Extendido de Resurrection OS, haciendo clic en la opción 'Iniciar ARES Bionic-Flow Bot'. ¡Nos vemos luego!" -ForegroundColor Yellow
-        Start-Sleep -Seconds 4
-        exit
-    }
-    default {
-        Write-Host "¡Opción inválida! Por favor, selecciona una opción válida." -ForegroundColor Red
-        Start-Sleep -Seconds 2
-        Clear-Host
-        Write-Host ($mainmenu)
-    }
+    
 }
