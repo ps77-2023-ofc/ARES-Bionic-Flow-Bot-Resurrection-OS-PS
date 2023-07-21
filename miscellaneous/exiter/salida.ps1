@@ -1,0 +1,1 @@
+$env:DisparadorSalidaScript = "opcion-6-salida-script"
